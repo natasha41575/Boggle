@@ -69,8 +69,8 @@ public class PlayBoggle {
               System.out.println("Nice!");
         	    score += guess.length(); //adds length of guess to the score
         	    return guess;
-	         }
-	       }
+	   }
+	 }
       }
       if (!dictionary.contains(guess)) {
          System.out.println("Word does not exist!");
