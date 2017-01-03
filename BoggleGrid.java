@@ -1,12 +1,21 @@
+/** A BoggleGrid object that fills itself with random letters when constructed.
+  * Follows certain rules such as:
+  * 	the letter Q is always found next to a U
+  *     no letter may take up more than 20% of the grid
+  *     a vowel is twice as likely to show up as a consonant.
+  */
+
 import java.util.Random;
 
 public class BoggleGrid {
   
+  /** data members */
   private BoggleLetter[][] grid;
   private int size;
   private char[] letters = new char[31]; //vowels show up twice
   private int[] letterCounts = new int[31];
   
+  /** constructor */
   public BoggleGrid(int size) {
     grid = new BoggleLetter[size][size];
     this.size = size;
@@ -14,7 +23,8 @@ public class BoggleGrid {
     fillGrid();
   }
   
-  private void setLetters() { //add a for loop to fill letters array
+  /** Creates an array of letters, where vowels show up twice. */
+  private void setLetters() { 
     letters[0] = 'A';
     for (int i = 1; i < letters.length; i++) {
       letters[i] = (char) (letters[i - 1] + 1);
@@ -26,6 +36,7 @@ public class BoggleGrid {
     letters[30] = 'U';
   }
 
+  /** Fills the grid with random letters. */
   private void fillGrid() {
     Random rand = new Random();
     int position;
@@ -48,15 +59,20 @@ public class BoggleGrid {
       }
   }
   
+  /** Retrieves a random letter from the array of letters. */
   private char getRandomLetter() {
     Random r = new Random();
     int index = r.nextInt(31);
     return letters[index];
   }
 
+  /** Called whenever a Q is put on the grid.
+    * Adds the letter U to a random position next to the Q.
+    */
   private void addU(int r, int c, Random rand){
     BoggleLetter current_letter = new BoggleLetter('U', size);
-
+    
+    //each number from 0-8 corresponds to a position around the letter Q.
     int position = rand.nextInt(8);   
     switch (position){
       case 0:
@@ -102,6 +118,7 @@ public class BoggleGrid {
     }
   }
   
+  /** Keeps track of how many of each letter there are in the grid. */
   private void addCount(char letter) {
     int index = -1;
     for (int i = 0; i < letters.length; i++) {
@@ -113,7 +130,8 @@ public class BoggleGrid {
     letterCounts[index]++;
   }
   
-  private boolean tooMany(char L) { //checks if there are over 20% of the same letter in the grid
+  /** Checks if there are over 20% of the same letter in the grid. */
+  private boolean tooMany(char L) {
     long threshold = Math.round(size * size * 0.2);
     int index = -1;
     for (int i = 0; i < letters.length; i++) {
@@ -124,7 +142,12 @@ public class BoggleGrid {
     }
     return letterCounts[index] > threshold;
   } 
-
+	
+  /** Returns the BoggleLetter at the given position. */
+  public BoggleLetter getLetterAtPosition(int r, int c){
+    return this.grid[r][c];
+  } 
+	
   public String toString() { 
     String temp = "";
     for (int r = 0; r < size; r++) {
@@ -135,8 +158,5 @@ public class BoggleGrid {
     }
     return temp;
   }
-
-  public BoggleLetter getLetterAtPosition(int r, int c){
-    return this.grid[r][c];
-  }  
+ 
 }
