@@ -64,7 +64,7 @@ public class PlayBoggle {
       guess = guess.toUpperCase();
       //goes through entire grid
       for (int row = 0; row < size; row++) {
-	       for (int col = 0; col < size; col++) {
+	 for (int col = 0; col < size; col++) {
            if (checkIfWordMatches(guess, row, col, 0) && dictionary.contains(guess) && !alreadyGuessed()) {
               System.out.println("Nice!");
         	    score += guess.length(); //adds length of guess to the score
