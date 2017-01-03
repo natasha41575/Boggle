@@ -1,3 +1,7 @@
+/** Contains main function.
+  * Allows a game of Boggle to be played.
+  */
+
 import java.util.*;
 import java.io.*;
 
